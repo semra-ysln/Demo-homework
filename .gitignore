@@ -34,3 +34,25 @@ logs/
 temp/
 tmp/
 *.tmp
+
+# Project backups (old versions)
+admin-new.html
+admin-new-fixed.html
+admin-CLEAN.html
+index-new.html
+index-clean.html
+fix.html
+js-data.js
+
+# Old documentation (keep only README.md, PLAN.md, STATUS.md)
+ARCHITECTURE.md
+COMPLETION-REPORT.md
+DATA-STRUCTURE.md
+DEVELOPMENT.md
+DOCS-INDEX.md
+FINAL-SUMMARY.md
+PHASE-7-REPORT.md
+SETUP.md
+TEST-CHECKLIST.md
+TEST.md
+
