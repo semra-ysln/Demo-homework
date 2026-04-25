@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookstore Admin Panel - Yönetim Paneli</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h3><i class="fas fa-book"></i> Bookstore</h3>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="fas fa-home"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="admin.html">
+              <i class="fas fa-lock"></i> Admin
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="content">
+        <!-- Header -->
+        <header class="header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <h1 class="page-title">
+                  <i class="fas fa-cog"></i> Admin Panel
+                </h1>
+              </div>
+              <div class="col-md-6 text-end">
+                <a href="index.html" class="btn btn-secondary">
+                  <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="container-fluid py-4">
+          <!-- Action Buttons -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <div class="d-flex gap-2 flex-wrap">
+                <button
+                  class="btn btn-success"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addBookModal"
+                >
+                  <i class="fas fa-plus"></i> Add New Book
+                </button>
+                <button
+                  class="btn btn-warning"
+                  id="testDataBtn"
+                  onclick="addTestData()"
+                >
+                  <i class="fas fa-flask"></i> Add Test Data (Bozuk Veri)
+                </button>
+                <button class="btn btn-danger" onclick="confirmReset()">
+                  <i class="fas fa-undo"></i> Reset System
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Books Management Table -->
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-list"></i> Book Management</h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover" id="adminBooksTable">
+                  <thead class="table-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Author</th>
+                      <th>Price</th>
+                      <th>Category</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Dinamik olarak doldurulacak -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+          <div class="container-fluid">
+            <p class="mb-0">
+              © 2026 Bookstore Admin Panel - All Rights Reserved
+            </p>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Add/Edit Book Modal -->
+    <div class="modal fade" id="addBookModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title" id="modalTitle">Add New Book</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="bookForm">
+              <input type="hidden" id="bookId" value="" />
+
+              <div class="mb-3">
+                <label class="form-label">Book Title *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="bookTitle"
+                  placeholder="Enter book title"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Author *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="bookAuthor"
+                  placeholder="Enter author name"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Price ($) *</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="bookPrice"
+                  placeholder="0.00"
+                  step="0.01"
+                  min="0.01"
+                  max="999.99"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Category *</label>
+                <select class="form-control" id="bookCategory" required>
+                  <option value="">-- Select Category --</option>
+                  <option value="Roman">Roman</option>
+                  <option value="Bilim Kurgu">Bilim Kurgu</option>
+                  <option value="Tarih">Tarih</option>
+                  <option value="Biyografi">Biyografi</option>
+                  <option value="Aşçılık">Aşçılık</option>
+                  <option value="Bilim">Bilim</option>
+                  <option value="Çocuk">Çocuk</option>
+                  <option value="Şiir">Şiir</option>
+                  <option value="Öykü">Öykü</option>
+                  <option value="İş/Ekonomi">İş/Ekonomi</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Cover Image URL *</label>
+                <input
+                  type="url"
+                  class="form-control"
+                  id="bookCover"
+                  placeholder="https://example.com/image.jpg"
+                  required
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-success" onclick="saveBook()">
+              Save Book
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Inline JS (Shared Data Layer + Admin Logic) -->
+    <script>
+      /**
+       * =====================================================
+       * DATA LAYER (BookStore - Shared)
+       * =====================================================
+       */
+      class BookStore {
+        constructor() {
+          this.storageKey = "bookstore_books";
+          this.goldenDataUrl = "./golden-data.json";
+          this.books = [];
+        }
+
+        async init() {
+          try {
+            const storedData = localStorage.getItem(this.storageKey);
+            if (storedData) {
+              this.books = JSON.parse(storedData);
+              console.log(
+                `✅ Loaded ${this.books.length} books from localStorage`,
+              );
+            } else {
+              console.log("📥 Loading golden data...");
+              await this.loadGoldenData();
+            }
+          } catch (error) {
+            console.error("❌ Error during init:", error);
+            await this.loadGoldenData();
+          }
+        }
+
+        async loadGoldenData() {
+          try {
+            const response = await fetch(this.goldenDataUrl);
+            if (!response.ok)
+              throw new Error(`Failed to fetch: ${response.statusText}`);
+            this.books = await response.json();
+            this.saveToStorage();
+            console.log(`✅ Golden data loaded: ${this.books.length} books`);
+          } catch (error) {
+            console.error("❌ Error loading golden data:", error);
+            this.books = [];
+          }
+        }
+
+        getBooks() {
+          return this.books;
+        }
+
+        addBook(bookData) {
+          const errors = this.validateBook(bookData);
+          if (errors.length > 0) throw new Error(errors.join(", "));
+
+          const newId =
+            this.books.length > 0
+              ? Math.max(...this.books.map((b) => b.id)) + 1
+              : 1;
+          const newBook = {
+            id: newId,
+            title: bookData.title.trim(),
+            author: bookData.author.trim(),
+            price: parseFloat(bookData.price),
+            category: bookData.category,
+            cover: bookData.cover.trim(),
+            sales: bookData.sales || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          };
+
+          this.books.push(newBook);
+          this.saveToStorage();
+          console.log(`✅ Book added: "${newBook.title}"`);
+          return newBook;
+        }
+
+        updateBook(id, updateData) {
+          const bookIndex = this.books.findIndex((b) => b.id === id);
+          if (bookIndex === -1) throw new Error(`Book ID ${id} not found`);
+
+          const updatedBook = {
+            ...this.books[bookIndex],
+            ...updateData,
+            id: this.books[bookIndex].id,
+          };
+          const errors = this.validateBook(updatedBook);
+          if (errors.length > 0) throw new Error(errors.join(", "));
+
+          this.books[bookIndex] = updatedBook;
+          this.saveToStorage();
+          console.log(`✅ Book updated: "${updatedBook.title}"`);
+          return updatedBook;
+        }
+
+        deleteBook(id) {
+          const bookIndex = this.books.findIndex((b) => b.id === id);
+          if (bookIndex === -1) throw new Error(`Book ID ${id} not found`);
+
+          const deletedBook = this.books[bookIndex];
+          this.books.splice(bookIndex, 1);
+          this.saveToStorage();
+          console.log(`✅ Book deleted: "${deletedBook.title}"`);
+          return deletedBook;
+        }
+
+        async resetData() {
+          try {
+            console.log("🔄 Resetting...");
+            localStorage.removeItem(this.storageKey);
+            await this.loadGoldenData();
+            console.log("✅ Reset to golden state");
+            return this.books;
+          } catch (error) {
+            console.error("❌ Error resetting:", error);
+            throw error;
+          }
+        }
+
+        validateBook(book) {
+          const errors = [];
+          if (!book.title || book.title.trim().length < 3)
+            errors.push("Title must be 3+ chars");
+          if (!book.author || book.author.trim().length < 2)
+            errors.push("Author required");
+          if (
+            !book.price ||
+            parseFloat(book.price) <= 0 ||
+            parseFloat(book.price) > 999.99
+          )
+            errors.push("Price 0-999.99");
+          const validCats = [
+            "Roman",
+            "Bilim Kurgu",
+            "Tarih",
+            "Biyografi",
+            "Aşçılık",
+            "Bilim",
+            "Çocuk",
+            "Şiir",
+            "Öykü",
+            "İş/Ekonomi",
+          ];
+          if (!book.category || !validCats.includes(book.category))
+            errors.push("Invalid category");
+          if (!book.cover || !this.isValidUrl(book.cover))
+            errors.push("Invalid cover URL");
+          return errors;
+        }
+
+        isValidUrl(string) {
+          try {
+            new URL(string);
+            return true;
+          } catch (_) {
+            return false;
+          }
+        }
+
+        saveToStorage() {
+          localStorage.setItem(this.storageKey, JSON.stringify(this.books));
+          console.log(`💾 Saved ${this.books.length} books`);
+        }
+      }
+
+      const bookStore = new BookStore();
+
+      /**
+       * =====================================================
+       * TOAST NOTIFICATION SYSTEM
+       * =====================================================
+       */
+      class Toast {
+        static show(message, type = "info", duration = 4000) {
+          const container = document.getElementById("toastContainer");
+          const toastEl = document.createElement("div");
+          toastEl.className = `toast-notification toast-${type}`;
+          toastEl.innerHTML = `
+                    <i class="fas fa-${type === "success" ? "check-circle" : type === "error" ? "times-circle" : type === "warning" ? "exclamation-circle" : "info-circle"}"></i>
+                    <span>${message}</span>
+                `;
+          container.appendChild(toastEl);
+
+          setTimeout(() => {
+            toastEl.classList.add("hide");
+            setTimeout(() => toastEl.remove(), 300);
+          }, duration);
+        }
+      }
+
+      /**
+       * =====================================================
+       * ADMIN PAGE LOGIC
+       * =====================================================
+       */
+      let editingBookId = null;
+      const modal = new bootstrap.Modal(
+        document.getElementById("addBookModal"),
+      );
+
+      async function initAdmin() {
+        try {
+          await bookStore.init();
+          renderAdminBooks();
+          Toast.show("Admin panel loaded", "info");
+        } catch (error) {
+          Toast.show("Error: " + error.message, "error");
+        }
+      }
+
+      function renderAdminBooks() {
+        const tbody = document.querySelector("#adminBooksTable tbody");
+        tbody.innerHTML = "";
+
+        bookStore.getBooks().forEach((book) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+                    <td>${book.id}</td>
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>$${book.price.toFixed(2)}</td>
+                    <td>${book.category}</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning" onclick="editBook(${book.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(${book.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function editBook(id) {
+        const book = bookStore.getBooks().find((b) => b.id === id);
+        if (!book) return;
+
+        editingBookId = id;
+        document.getElementById("modalTitle").textContent = "Edit Book";
+        document.getElementById("bookId").value = id;
+        document.getElementById("bookTitle").value = book.title;
+        document.getElementById("bookAuthor").value = book.author;
+        document.getElementById("bookPrice").value = book.price;
+        document.getElementById("bookCategory").value = book.category;
+        document.getElementById("bookCover").value = book.cover;
+        modal.show();
+      }
+
+      function saveBook() {
+        const bookId = document.getElementById("bookId").value;
+        const bookData = {
+          title: document.getElementById("bookTitle").value,
+          author: document.getElementById("bookAuthor").value,
+          price: parseFloat(document.getElementById("bookPrice").value),
+          category: document.getElementById("bookCategory").value,
+          cover: document.getElementById("bookCover").value,
+        };
+
+        try {
+          if (bookId) {
+            bookStore.updateBook(parseInt(bookId), bookData);
+            Toast.show("Book updated successfully", "success");
+          } else {
+            bookStore.addBook(bookData);
+            Toast.show("Book added successfully", "success");
+          }
+
+          renderAdminBooks();
+          modal.hide();
+          document.getElementById("bookForm").reset();
+          document.getElementById("bookId").value = "";
+          editingBookId = null;
+        } catch (error) {
+          Toast.show("Error: " + error.message, "error");
+        }
+      }
+
+      function confirmDelete(id) {
+        const book = bookStore.getBooks().find((b) => b.id === id);
+        if (confirm(`Silmek istediğinize emin misiniz?\n\n"${book.title}"`)) {
+          deleteBook(id);
+        }
+      }
+
+      function deleteBook(id) {
+        try {
+          bookStore.deleteBook(id);
+          renderAdminBooks();
+          Toast.show("Book deleted successfully", "success");
+        } catch (error) {
+          Toast.show("Error: " + error.message, "error");
+        }
+      }
+
+      function addTestData() {
+        const testBooks = [
+          {
+            title: "xxxxx",
+            author: "Unknown",
+            price: Math.random() * 5000,
+            category: "Roman",
+            cover: "https://via.placeholder.com/80x120?text=ERROR",
+          },
+          {
+            title: "!!!???",
+            author: "Test",
+            price: 99999,
+            category: "Bilim Kurgu",
+            cover: "https://via.placeholder.com/80x120?text=BAD",
+          },
+          {
+            title: "Spam",
+            author: "Bot",
+            price: 0.01,
+            category: "Tarih",
+            cover: "https://via.placeholder.com/80x120?text=SPAM",
+          },
+          {
+            title: "12345",
+            author: "Robot",
+            price: 888.88,
+            category: "Çocuk",
+            cover: "https://via.placeholder.com/80x120?text=TEST",
+          },
+        ];
+
+        let added = 0;
+        testBooks.forEach((book) => {
+          try {
+            bookStore.addBook(book);
+            added++;
+          } catch (e) {
+            console.error("Failed to add test book:", e);
+          }
+        });
+
+        renderAdminBooks();
+        Toast.show(`Added ${added} test books (bozuk veri)`, "warning");
+      }
+
+      function confirmReset() {
+        if (
+          confirm(
+            "Sistemi Golden State'e sıfırlamak istediğinize emin misiniz?\n\nTüm bozuk veriler silinecek ve 20 temiz kitap geri yüklenecektir.",
+          )
+        ) {
+          resetSystem();
+        }
+      }
+
+      async function resetSystem() {
+        try {
+          await bookStore.resetData();
+          renderAdminBooks();
+          Toast.show(
+            "✅ System reset to golden state successfully!",
+            "success",
+          );
+        } catch (error) {
+          Toast.show("❌ Error: " + error.message, "error");
+        }
+      }
+
+      // Keyboard shortcut: Ctrl+Shift+R
+      document.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key === "R") {
+          e.preventDefault();
+          confirmReset();
+        }
+      });
+
+      // Modal event: Reset form when adding new book
+      document
+        .getElementById("addBookModal")
+        .addEventListener("hidden.bs.modal", function () {
+          editingBookId = null;
+          document.getElementById("modalTitle").textContent = "Add New Book";
+          document.getElementById("bookId").value = "";
+          document.getElementById("bookForm").reset();
+        });
+
+      // Initialize admin panel
+      document.addEventListener("DOMContentLoaded", initAdmin);
+    </script>
+  </body>
+</html>

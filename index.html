@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookstore Inventory Dashboard - Kullanıcı Paneli</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h3><i class="fas fa-book"></i> Bookstore</h3>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">
+              <i class="fas fa-home"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#authors">
+              <i class="fas fa-pen-fancy"></i> Authors
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#inventory">
+              <i class="fas fa-boxes"></i> Inventory
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#settings">
+              <i class="fas fa-cog"></i> Settings
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="content">
+        <!-- Header -->
+        <header class="header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <h1 class="page-title">
+                  <i class="fas fa-chart-line"></i> Inventory Dashboard
+                </h1>
+              </div>
+              <div class="col-md-6 text-end">
+                <button
+                  class="btn btn-warning"
+                  id="adminBtn"
+                  onclick="goToAdmin()"
+                >
+                  <i class="fas fa-lock"></i> Admin
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="container-fluid py-4">
+          <!-- Statistics Cards -->
+          <div class="row mb-4" id="statsRow">
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-primary">
+                  <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-content">
+                  <h6 class="stat-label">Total Books</h6>
+                  <h3 class="stat-value" id="totalBooksValue">0</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-success">
+                  <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-content">
+                  <h6 class="stat-label">Total Revenue</h6>
+                  <h3 class="stat-value" id="totalRevenueValue">$0</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-info">
+                  <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="stat-content">
+                  <h6 class="stat-label">Average Price</h6>
+                  <h3 class="stat-value" id="avgPriceValue">$0</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-warning">
+                  <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-content">
+                  <h6 class="stat-label">Total Sales</h6>
+                  <h3 class="stat-value" id="totalSalesValue">0</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Books Table Section -->
+          <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-list"></i> Book List</h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover" id="booksTable">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Title</th>
+                      <th>Authors</th>
+                      <th>Price</th>
+                      <th>Category</th>
+                      <th>Cover</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Dinamik olarak doldurulacak -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monthly Revenue Chart -->
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">
+                <i class="fas fa-chart-bar"></i> Monthly Revenue
+              </h5>
+            </div>
+            <div class="card-body">
+              <canvas id="revenueChart" height="80"></canvas>
+            </div>
+          </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <p class="mb-0">
+                  © 2026 Bookstore Dashboard - All Rights Reserved
+                </p>
+              </div>
+              <div class="col-md-6 text-end">
+                <button
+                  class="btn btn-danger btn-sm"
+                  id="resetBtn"
+                  onclick="confirmReset()"
+                >
+                  <i class="fas fa-undo"></i> Reset System
+                </button>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+    <!-- Inline JS (Data Layer + Toast + App) -->
+    <script>
+      /**
+       * =====================================================
+       * DATA LAYER (BookStore)
+       * =====================================================
+       */
+      class BookStore {
+        constructor() {
+          this.storageKey = "bookstore_books";
+          this.goldenDataUrl = "./golden-data.json";
+          this.books = [];
+        }
+
+        async init() {
+          try {
+            const storedData = localStorage.getItem(this.storageKey);
+            if (storedData) {
+              this.books = JSON.parse(storedData);
+              console.log(
+                `✅ Loaded ${this.books.length} books from localStorage`,
+              );
+            } else {
+              console.log("📥 Loading golden data...");
+              await this.loadGoldenData();
+            }
+          } catch (error) {
+            console.error("❌ Error during init:", error);
+            await this.loadGoldenData();
+          }
+        }
+
+        async loadGoldenData() {
+          try {
+            const response = await fetch(this.goldenDataUrl);
+            if (!response.ok) {
+              throw new Error(`Failed to fetch: ${response.statusText}`);
+            }
+            this.books = await response.json();
+            this.saveToStorage();
+            console.log(`✅ Golden data loaded: ${this.books.length} books`);
+          } catch (error) {
+            console.error("❌ Error loading golden data:", error);
+            this.books = [];
+          }
+        }
+
+        getBooks() {
+          return this.books;
+        }
+
+        addBook(bookData) {
+          const errors = this.validateBook(bookData);
+          if (errors.length > 0) throw new Error(errors.join(", "));
+
+          const newId =
+            this.books.length > 0
+              ? Math.max(...this.books.map((b) => b.id)) + 1
+              : 1;
+          const newBook = {
+            id: newId,
+            title: bookData.title.trim(),
+            author: bookData.author.trim(),
+            price: parseFloat(bookData.price),
+            category: bookData.category,
+            cover: bookData.cover.trim(),
+            sales: bookData.sales || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          };
+
+          this.books.push(newBook);
+          this.saveToStorage();
+          console.log(`✅ Book added: "${newBook.title}"`);
+          return newBook;
+        }
+
+        updateBook(id, updateData) {
+          const bookIndex = this.books.findIndex((b) => b.id === id);
+          if (bookIndex === -1) throw new Error(`Book ID ${id} not found`);
+
+          const updatedBook = {
+            ...this.books[bookIndex],
+            ...updateData,
+            id: this.books[bookIndex].id,
+          };
+          const errors = this.validateBook(updatedBook);
+          if (errors.length > 0) throw new Error(errors.join(", "));
+
+          this.books[bookIndex] = updatedBook;
+          this.saveToStorage();
+          console.log(`✅ Book updated: "${updatedBook.title}"`);
+          return updatedBook;
+        }
+
+        deleteBook(id) {
+          const bookIndex = this.books.findIndex((b) => b.id === id);
+          if (bookIndex === -1) throw new Error(`Book ID ${id} not found`);
+
+          const deletedBook = this.books[bookIndex];
+          this.books.splice(bookIndex, 1);
+          this.saveToStorage();
+          console.log(`✅ Book deleted: "${deletedBook.title}"`);
+          return deletedBook;
+        }
+
+        async resetData() {
+          try {
+            console.log("🔄 Resetting...");
+            localStorage.removeItem(this.storageKey);
+            await this.loadGoldenData();
+            console.log("✅ Reset to golden state");
+            return this.books;
+          } catch (error) {
+            console.error("❌ Error resetting:", error);
+            throw error;
+          }
+        }
+
+        validateBook(book) {
+          const errors = [];
+          if (!book.title || book.title.trim().length < 3)
+            errors.push("Title must be 3+ chars");
+          if (!book.author || book.author.trim().length < 2)
+            errors.push("Author required");
+          if (
+            !book.price ||
+            parseFloat(book.price) <= 0 ||
+            parseFloat(book.price) > 999.99
+          )
+            errors.push("Price 0-999.99");
+          const validCats = [
+            "Roman",
+            "Bilim Kurgu",
+            "Tarih",
+            "Biyografi",
+            "Aşçılık",
+            "Bilim",
+            "Çocuk",
+            "Şiir",
+            "Öykü",
+            "İş/Ekonomi",
+          ];
+          if (!book.category || !validCats.includes(book.category))
+            errors.push("Invalid category");
+          if (!book.cover || !this.isValidUrl(book.cover))
+            errors.push("Invalid cover URL");
+          return errors;
+        }
+
+        isValidUrl(string) {
+          try {
+            new URL(string);
+            return true;
+          } catch (_) {
+            return false;
+          }
+        }
+
+        saveToStorage() {
+          localStorage.setItem(this.storageKey, JSON.stringify(this.books));
+          console.log(`💾 Saved ${this.books.length} books`);
+        }
+
+        getStatistics() {
+          if (this.books.length === 0)
+            return {
+              totalBooks: 0,
+              totalRevenue: 0,
+              averagePrice: 0,
+              totalSales: 0,
+              categories: {},
+            };
+
+          const totalRevenue = this.books.reduce((sum, book) => {
+            return sum + book.sales.reduce((a, b) => a + b, 0) * book.price;
+          }, 0);
+
+          const totalSales = this.books.reduce(
+            (sum, book) => sum + book.sales.reduce((a, b) => a + b, 0),
+            0,
+          );
+          const averagePrice =
+            this.books.reduce((sum, book) => sum + book.price, 0) /
+            this.books.length;
+
+          return {
+            totalBooks: this.books.length,
+            totalRevenue: totalRevenue.toFixed(2),
+            averagePrice: averagePrice.toFixed(2),
+            totalSales,
+            categories: {},
+          };
+        }
+
+        getMonthlyRevenue() {
+          const monthlyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+          this.books.forEach((book) => {
+            book.sales.forEach((sales, month) => {
+              monthlyData[month] += sales * book.price;
+            });
+          });
+          return monthlyData.map((rev) => parseFloat(rev.toFixed(2)));
+        }
+      }
+
+      const bookStore = new BookStore();
+
+      /**
+       * =====================================================
+       * TOAST NOTIFICATION SYSTEM
+       * =====================================================
+       */
+      class Toast {
+        static show(message, type = "info", duration = 4000) {
+          const container = document.getElementById("toastContainer");
+          const toastEl = document.createElement("div");
+          toastEl.className = `toast-notification toast-${type}`;
+          toastEl.innerHTML = `
+                    <i class="fas fa-${type === "success" ? "check-circle" : type === "error" ? "times-circle" : type === "warning" ? "exclamation-circle" : "info-circle"}"></i>
+                    <span>${message}</span>
+                `;
+          container.appendChild(toastEl);
+
+          setTimeout(() => {
+            toastEl.classList.add("hide");
+            setTimeout(() => toastEl.remove(), 300);
+          }, duration);
+        }
+      }
+
+      /**
+       * =====================================================
+       * APPLICATION LOGIC
+       * =====================================================
+       */
+      let revenueChart = null;
+
+      async function initApp() {
+        try {
+          await bookStore.init();
+          renderBooks();
+          renderChart();
+          updateStats();
+          Toast.show("Dashboard loaded successfully", "success");
+        } catch (error) {
+          Toast.show("Error loading dashboard: " + error.message, "error");
+        }
+      }
+
+      function renderBooks() {
+        const tbody = document.querySelector("#booksTable tbody");
+        tbody.innerHTML = "";
+
+        bookStore.getBooks().forEach((book) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+                    <td><strong>${book.title}</strong></td>
+                    <td>${book.author}</td>
+                    <td>$${book.price.toFixed(2)}</td>
+                    <td><span class="badge bg-info">${book.category}</span></td>
+                    <td><img src="${book.cover}" alt="${book.title}" width="50" height="70" class="img-thumbnail"></td>
+                `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function updateStats() {
+        const stats = bookStore.getStatistics();
+        document.getElementById("totalBooksValue").textContent =
+          stats.totalBooks;
+        document.getElementById("totalRevenueValue").textContent =
+          "$" + stats.totalRevenue;
+        document.getElementById("avgPriceValue").textContent =
+          "$" + stats.averagePrice;
+        document.getElementById("totalSalesValue").textContent =
+          stats.totalSales;
+      }
+
+      function renderChart() {
+        const ctx = document.getElementById("revenueChart").getContext("2d");
+        const monthlyRevenue = bookStore.getMonthlyRevenue();
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        if (revenueChart) revenueChart.destroy();
+
+        revenueChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: months,
+            datasets: [
+              {
+                label: "Monthly Revenue ($)",
+                data: monthlyRevenue,
+                borderColor: "#0d6efd",
+                backgroundColor: "rgba(13, 110, 253, 0.1)",
+                tension: 0.4,
+                fill: true,
+                pointRadius: 5,
+                pointBackgroundColor: "#0d6efd",
+                pointBorderColor: "#fff",
+                pointBorderWidth: 2,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: { display: true, position: "top" },
+            },
+            scales: {
+              y: { beginAtZero: true },
+            },
+          },
+        });
+      }
+
+      function goToAdmin() {
+        window.location.href = "admin.html";
+      }
+
+      function confirmReset() {
+        if (
+          confirm(
+            "Sistemi Golden State'e sıfırlamak istediğinize emin misiniz?\n\nTüm bozuk veriler silinecek ve 20 temiz kitap geri yüklenecektir.",
+          )
+        ) {
+          resetSystem();
+        }
+      }
+
+      async function resetSystem() {
+        try {
+          await bookStore.resetData();
+          renderBooks();
+          renderChart();
+          updateStats();
+          Toast.show(
+            "✅ System reset to golden state successfully!",
+            "success",
+          );
+        } catch (error) {
+          Toast.show("❌ Error resetting system: " + error.message, "error");
+        }
+      }
+
+      // Keyboard shortcut: Ctrl+Shift+R
+      document.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key === "R") {
+          e.preventDefault();
+          confirmReset();
+        }
+      });
+
+      // Initialize app when DOM is ready
+      document.addEventListener("DOMContentLoaded", initApp);
+    </script>
+  </body>
+</html>
