@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookstore Inventory Dashboard - Kullanıcı Paneli</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h3><i class="fas fa-book"></i> Bookstore</h3>
+        </div>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="index.html">
+              <i class="fas fa-home"></i> Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin.html">
+              <i class="fas fa-lock"></i> Admin
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="content">
+        <!-- Header -->
+        <header class="header">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <h1 class="page-title">
+                  <i class="fas fa-chart-line"></i> Inventory Dashboard
+                </h1>
+              </div>
+              <div class="col-md-6 text-end">
+                <button
+                  class="btn btn-primary btn-sm"
+                  onclick="window.location.href='admin.html'"
+                >
+                  <i class="fas fa-cog"></i> Admin Panel
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main>
+          <!-- Statistics Cards -->
+          <div class="row mb-4 gap-2">
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-primary">
+                  <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-content">
+                  <h6 class="stat-label">Total Books</h6>
+                  <h3 class="stat-value" id="totalBooksValue">0</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-success">
+                  <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-content">
+                  <h6 class="stat-label">Total Revenue</h6>
+                  <h3 class="stat-value" id="totalRevenueValue">$0</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-info">
+                  <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="stat-content">
+                  <h6 class="stat-label">Average Price</h6>
+                  <h3 class="stat-value" id="avgPriceValue">$0</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-warning">
+                  <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-content">
+                  <h6 class="stat-label">Total Sales</h6>
+                  <h3 class="stat-value" id="totalSalesValue">0</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Books Table Section -->
+          <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0"><i class="fas fa-list"></i> Book List</h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover" id="booksTable">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Title</th>
+                      <th>Authors</th>
+                      <th>Price</th>
+                      <th>Category</th>
+                      <th>Cover</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Dinamik olarak doldurulacak -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monthly Revenue Chart -->
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">
+                <i class="fas fa-chart-bar"></i> Monthly Revenue
+              </h5>
+            </div>
+            <div class="card-body">
+              <canvas id="revenueChart" height="80"></canvas>
+            </div>
+          </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <p class="mb-0">
+                  © 2026 Bookstore Dashboard - All Rights Reserved
+                </p>
+              </div>
+              <div class="col-md-6 text-end">
+                <button
+                  class="btn btn-danger btn-sm"
+                  id="resetBtn"
+                  onclick="confirmReset()"
+                >
+                  <i class="fas fa-undo"></i> Reset System
+                </button>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- sql.js (SQLite for JavaScript) - FIXED CDN -->
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+
+    <!-- Inline JS (Data Layer + Toast + App) -->
+    <script>
+      let SQL;
+      let bookStore;
+
+      /**
+       * =====================================================
+       * SQL.JS INITIALIZATION
+       * =====================================================
+       */
+      async function initSqlJs() {
+        return new Promise((resolve) => {
+          window.initSqlJs().then((sql) => {
+            SQL = sql;
+            resolve();
+          });
+        });
+      }
+
+      /**
+       * =====================================================
+       * DATA LAYER (SQLiteStore - SQLite Backend)
+       * =====================================================
+       */
+      class SQLiteStore {
+        constructor() {
+          this.db = null;
+          this.dbKey = "bookstore_db";
+          this.goldenDataUrl = "./golden-data.json";
+        }
+
+        async init() {
+          try {
+            // Veritabanı oluştur
+            this.db = new SQL.Database();
+
+            // Tablo şemasını oluştur
+            this.createSchema();
+
+            // localStorage'dan mevcut verileri yükle
+            const storedDb = localStorage.getItem(this.dbKey);
+            if (storedDb) {
+              try {
+                const data = JSON.parse(storedDb);
+                this.db = new SQL.Database(new Uint8Array(data));
+                console.log("✅ Database restored from localStorage");
+              } catch (e) {
+                console.log("📥 Creating new database...");
+                await this.loadGoldenData();
+              }
+            } else {
+              console.log("📥 Loading golden data...");
+              await this.loadGoldenData();
+            }
+          } catch (error) {
+            console.error("❌ Init error:", error);
+            throw error;
+          }
+        }
+
+        createSchema() {
+          if (!this.db) return;
+
+          // Books tablosu
+          this.db.run(`
+            CREATE TABLE IF NOT EXISTS books (
+              id INTEGER PRIMARY KEY,
+              title TEXT NOT NULL,
+              author TEXT NOT NULL,
+              price REAL NOT NULL,
+              category TEXT NOT NULL,
+              cover TEXT,
+              isbn TEXT,
+              description TEXT,
+              publication_date TEXT,
+              status TEXT DEFAULT 'active',
+              created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+              updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+          `);
+
+          // Sales tablosu
+          this.db.run(`
+            CREATE TABLE IF NOT EXISTS sales (
+              id INTEGER PRIMARY KEY,
+              book_id INTEGER NOT NULL,
+              month INTEGER,
+              quantity INTEGER,
+              FOREIGN KEY(book_id) REFERENCES books(id)
+            )
+          `);
+
+          console.log("✅ Database schema created");
+        }
+
+        async loadGoldenData() {
+          try {
+            const response = await fetch(this.goldenDataUrl);
+            if (!response.ok) {
+              throw new Error(`Failed to fetch: ${response.statusText}`);
+            }
+            const goldenBooks = await response.json();
+
+            // Verileri temizle
+            this.db.run("DELETE FROM sales");
+            this.db.run("DELETE FROM books");
+
+            // Golden data'yı insert et
+            goldenBooks.forEach((book) => {
+              this.db.run(
+                `INSERT INTO books (id, title, author, price, category, cover, isbn, description, publication_date, status)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                  book.id,
+                  book.title,
+                  book.author,
+                  book.price,
+                  book.category,
+                  book.cover,
+                  book.isbn || null,
+                  book.description || null,
+                  book.publication_date || null,
+                  book.status || "active",
+                ]
+              );
+
+              // Sales verilerini insert et
+              Object.entries(book.sales || {}).forEach(([month, quantity]) => {
+                this.db.run(
+                  "INSERT INTO sales (book_id, month, quantity) VALUES (?, ?, ?)",
+                  [book.id, parseInt(month), quantity]
+                );
+              });
+            });
+
+            this.saveDb();
+            console.log(`✅ Loaded ${goldenBooks.length} books from golden data`);
+          } catch (error) {
+            console.error("❌ Error loading golden data:", error);
+            throw error;
+          }
+        }
+
+        getBooks() {
+          try {
+            const stmt = this.db.prepare(
+              "SELECT * FROM books ORDER BY id DESC"
+            );
+            const books = [];
+            while (stmt.step()) {
+              const row = stmt.getAsObject();
+              books.push(row);
+            }
+            stmt.free();
+            return books;
+          } catch (error) {
+            console.error("❌ Error getting books:", error);
+            return [];
+          }
+        }
+
+        addBook(bookData) {
+          const errors = this.validateBook(bookData);
+          if (errors.length > 0) throw new Error(errors.join(", "));
+
+          try {
+            const stmt = this.db.prepare(
+              "SELECT MAX(id) as maxId FROM books"
+            );
+            stmt.step();
+            const { maxId } = stmt.getAsObject();
+            stmt.free();
+            const newId = (maxId || 0) + 1;
+
+            this.db.run(
+              `INSERT INTO books (id, title, author, price, category, cover, isbn, description, publication_date, status)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              [
+                newId,
+                bookData.title.trim(),
+                bookData.author.trim(),
+                parseFloat(bookData.price),
+                bookData.category,
+                bookData.cover.trim(),
+                bookData.isbn || null,
+                bookData.description || null,
+                bookData.publication_date || null,
+                "active",
+              ]
+            );
+
+            this.saveDb();
+            console.log(`✅ Book added: "${bookData.title}"`);
+            return { id: newId, ...bookData };
+          } catch (error) {
+            console.error("❌ Error adding book:", error);
+            throw error;
+          }
+        }
+
+        updateBook(id, updateData) {
+          try {
+            const stmt = this.db.prepare(
+              "SELECT id FROM books WHERE id = ?"
+            );
+            stmt.bind([id]);
+            const exists = stmt.step();
+            stmt.free();
+
+            if (!exists) {
+              throw new Error(`Book ID ${id} not found`);
+            }
+
+            const errors = this.validateBook(updateData);
+            if (errors.length > 0) throw new Error(errors.join(", "));
+
+            this.db.run(
+              `UPDATE books SET 
+               title = ?, author = ?, price = ?, category = ?, 
+               cover = ?, isbn = ?, description = ?, publication_date = ?, 
+               updated_at = CURRENT_TIMESTAMP
+               WHERE id = ?`,
+              [
+                updateData.title.trim(),
+                updateData.author.trim(),
+                parseFloat(updateData.price),
+                updateData.category,
+                updateData.cover.trim(),
+                updateData.isbn || null,
+                updateData.description || null,
+                updateData.publication_date || null,
+                id,
+              ]
+            );
+
+            this.saveDb();
+            console.log(`✅ Book updated: ID ${id}`);
+            return { id, ...updateData };
+          } catch (error) {
+            console.error("❌ Error updating book:", error);
+            throw error;
+          }
+        }
+
+        deleteBook(id) {
+          try {
+            const stmt = this.db.prepare(
+              "SELECT title FROM books WHERE id = ?"
+            );
+            stmt.bind([id]);
+            const row = stmt.step() ? stmt.getAsObject() : null;
+            stmt.free();
+
+            if (!row) {
+              throw new Error(`Book ID ${id} not found`);
+            }
+
+            this.db.run("DELETE FROM sales WHERE book_id = ?", [id]);
+            this.db.run("DELETE FROM books WHERE id = ?", [id]);
+
+            this.saveDb();
+            console.log(`✅ Book deleted: "${row.title}"`);
+            return row;
+          } catch (error) {
+            console.error("❌ Error deleting book:", error);
+            throw error;
+          }
+        }
+
+        getStatistics() {
+          try {
+            const stmt = this.db.prepare(
+              `SELECT 
+                COUNT(*) as totalBooks,
+                COALESCE(SUM(price), 0) as totalValue,
+                COALESCE(AVG(price), 0) as avgPrice
+               FROM books`
+            );
+            stmt.step();
+            const stats = stmt.getAsObject();
+            stmt.free();
+
+            // Total sales hesapla
+            const salesStmt = this.db.prepare(
+              "SELECT COALESCE(SUM(quantity), 0) as totalSales FROM sales"
+            );
+            salesStmt.step();
+            const { totalSales } = salesStmt.getAsObject();
+            salesStmt.free();
+
+            return {
+              totalBooks: stats.totalBooks,
+              totalRevenue: stats.totalValue.toFixed(2),
+              avgPrice: stats.avgPrice.toFixed(2),
+              totalSales: totalSales,
+            };
+          } catch (error) {
+            console.error("❌ Error getting statistics:", error);
+            return {
+              totalBooks: 0,
+              totalRevenue: "0.00",
+              avgPrice: "0.00",
+              totalSales: 0,
+            };
+          }
+        }
+
+        getMonthlyRevenue() {
+          try {
+            const revenue = new Array(12).fill(0);
+            const stmt = this.db.prepare(
+              `SELECT s.month, SUM(s.quantity * b.price) as revenue
+               FROM sales s
+               JOIN books b ON s.book_id = b.id
+               GROUP BY s.month
+               ORDER BY s.month`
+            );
+
+            while (stmt.step()) {
+              const row = stmt.getAsObject();
+              revenue[row.month - 1] = Math.round(row.revenue || 0);
+            }
+            stmt.free();
+            return revenue;
+          } catch (error) {
+            console.error("❌ Error getting monthly revenue:", error);
+            return new Array(12).fill(0);
+          }
+        }
+
+        async resetData() {
+          try {
+            console.log("🔄 Resetting database...");
+            this.db.run("DELETE FROM sales");
+            this.db.run("DELETE FROM books");
+            await this.loadGoldenData();
+            console.log("✅ Reset to golden state");
+            return this.getBooks();
+          } catch (error) {
+            console.error("❌ Error resetting:", error);
+            throw error;
+          }
+        }
+
+        validateBook(book) {
+          const errors = [];
+          if (!book.title || book.title.trim().length < 3)
+            errors.push("Title must be 3+ chars");
+          if (!book.author || book.author.trim().length < 2)
+            errors.push("Author required");
+          if (
+            !book.price ||
+            parseFloat(book.price) <= 0 ||
+            parseFloat(book.price) > 999.99
+          )
+            errors.push("Price 0-999.99");
+          const validCats = [
+            "Roman",
+            "Bilim Kurgu",
+            "Tarih",
+            "Biyografi",
+            "Aşçılık",
+            "Bilim",
+            "Çocuk",
+            "Şiir",
+            "Öykü",
+            "İş/Ekonomi",
+          ];
+          if (!book.category || !validCats.includes(book.category))
+            errors.push("Invalid category");
+          if (!book.cover || !this.isValidUrl(book.cover))
+            errors.push("Invalid cover URL");
+          return errors;
+        }
+
+        isValidUrl(string) {
+          try {
+            new URL(string);
+            return true;
+          } catch (_) {
+            return false;
+          }
+        }
+
+        saveDb() {
+          try {
+            const data = this.db.export();
+            const json = JSON.stringify(Array.from(data));
+            localStorage.setItem(this.dbKey, json);
+          } catch (error) {
+            console.error("❌ Error saving DB:", error);
+          }
+        }
+      }
+
+      /**
+       * =====================================================
+       * TOAST NOTIFICATION SYSTEM
+       * =====================================================
+       */
+      class Toast {
+        static show(message, type = "info", duration = 4000) {
+          const container = document.getElementById("toastContainer");
+          const toastEl = document.createElement("div");
+          toastEl.className = `toast-notification toast-${type}`;
+          toastEl.innerHTML = `
+            <i class="fas fa-${
+              type === "success"
+                ? "check-circle"
+                : type === "error"
+                  ? "times-circle"
+                  : type === "warning"
+                    ? "exclamation-circle"
+                    : "info-circle"
+            }"></i>
+            <span>${message}</span>
+          `;
+          container.appendChild(toastEl);
+
+          setTimeout(() => {
+            toastEl.classList.add("hide");
+            setTimeout(() => toastEl.remove(), 300);
+          }, duration);
+        }
+      }
+
+      /**
+       * =====================================================
+       * APPLICATION LOGIC
+       * =====================================================
+       */
+      let revenueChart = null;
+
+      async function initApp() {
+        try {
+          // SQL.js'i başlat
+          await initSqlJs();
+
+          // BookStore'u oluştur ve başlat
+          bookStore = new SQLiteStore();
+          await bookStore.init();
+
+          renderBooks();
+          renderChart();
+          updateStats();
+          Toast.show("Dashboard loaded successfully ✨", "success");
+        } catch (error) {
+          Toast.show("Error loading dashboard: " + error.message, "error");
+          console.error("❌ Init error:", error);
+        }
+      }
+
+      function renderBooks() {
+        const tbody = document.querySelector("#booksTable tbody");
+        tbody.innerHTML = "";
+
+        bookStore.getBooks().forEach((book) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td><strong>${book.title}</strong></td>
+            <td>${book.author}</td>
+            <td>$${parseFloat(book.price).toFixed(2)}</td>
+            <td><span class="badge bg-info">${book.category}</span></td>
+            <td><img src="${book.cover}" alt="${book.title}" width="50" height="70" class="img-thumbnail"></td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function updateStats() {
+        const stats = bookStore.getStatistics();
+        document.getElementById("totalBooksValue").textContent =
+          stats.totalBooks;
+        document.getElementById("totalRevenueValue").textContent =
+          "$" + stats.totalRevenue;
+        document.getElementById("avgPriceValue").textContent =
+          "$" + stats.avgPrice;
+        document.getElementById("totalSalesValue").textContent =
+          stats.totalSales;
+      }
+
+      function renderChart() {
+        const ctx = document.getElementById("revenueChart").getContext("2d");
+        const data = bookStore.getMonthlyRevenue();
+
+        if (revenueChart) {
+          revenueChart.destroy();
+        }
+
+        revenueChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ],
+            datasets: [
+              {
+                label: "Monthly Revenue ($)",
+                data: data,
+                borderColor: "#0d6efd",
+                backgroundColor: "rgba(13, 110, 253, 0.1)",
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4,
+                pointBackgroundColor: "#0d6efd",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: true,
+                labels: { font: { size: 12 }, padding: 20 },
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: { callback: (v) => "$" + v },
+              },
+            },
+          },
+        });
+      }
+
+      async function confirmReset() {
+        if (
+          confirm(
+            "Are you sure you want to reset to golden state? All custom data will be lost."
+          )
+        ) {
+          try {
+            await bookStore.resetData();
+            renderBooks();
+            renderChart();
+            updateStats();
+            Toast.show("✅ System reset to golden state", "success");
+          } catch (error) {
+            Toast.show("Error resetting: " + error.message, "error");
+          }
+        }
+      }
+
+      // Keyboard shortcut: Ctrl+Shift+R
+      document.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key === "R") {
+          e.preventDefault();
+          confirmReset();
+        }
+      });
+
+      // App başlat
+      document.addEventListener("DOMContentLoaded", initApp);
+    </script>
+  </body>
+</html>

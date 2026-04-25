@@ -6,6 +6,10 @@
     "price": 45.00,
     "category": "Roman",
     "cover": "https://via.placeholder.com/80x120?text=Suç+ve+Ceza",
+    "isbn": "978-0-14-044913-0",
+    "description": "Dostoyevski'nin başyapıtı. Ahlak, suç ve ceza üzerine derin bir inceleme.",
+    "publication_date": "2020-01-15",
+    "status": "active",
     "sales": [120, 135, 140, 155, 148, 165, 172, 180, 195, 210, 225, 240]
   },
   {
@@ -15,6 +19,10 @@
     "price": 38.50,
     "category": "Roman",
     "cover": "https://via.placeholder.com/80x120?text=Beyaz+Gemi",
+    "isbn": "978-0-14-002947-1",
+    "description": "Türk edebiyatının etkileyici romanlarından biri.",
+    "publication_date": "2019-03-20",
+    "status": "active",
     "sales": [110, 125, 135, 145, 155, 160, 168, 175, 185, 200, 215, 230]
   },
   {
@@ -24,6 +32,10 @@
     "price": 52.00,
     "category": "Bilim Kurgu",
     "cover": "https://via.placeholder.com/80x120?text=Dune",
+    "isbn": "978-0-441-13959-7",
+    "description": "Bilim kurgu türünün klasik eseri. Epik bir uzay macerası.",
+    "publication_date": "2021-06-10",
+    "status": "active",
     "sales": [95, 108, 120, 135, 145, 158, 165, 178, 190, 205, 220, 235]
   },
   {
@@ -33,6 +45,10 @@
     "price": 42.75,
     "category": "Biyografi",
     "cover": "https://via.placeholder.com/80x120?text=İstanbul",
+    "isbn": "978-975-23-0745-6",
+    "description": "Orhan Pamuk'un İstanbul hakkındaki yansımaları ve anıları.",
+    "publication_date": "2018-09-05",
+    "status": "active",
     "sales": [100, 112, 125, 138, 150, 162, 175, 188, 200, 215, 228, 240]
   },
   {
@@ -42,6 +58,10 @@
     "price": 38.00,
     "category": "Roman",
     "cover": "https://via.placeholder.com/80x120?text=1984",
+    "isbn": "978-0-452-26423-9",
+    "description": "Distopya türünün en meşhur eseri. Totalitarizmin uyarısı.",
+    "publication_date": "2020-11-12",
+    "status": "active",
     "sales": [130, 145, 155, 168, 175, 185, 195, 205, 220, 235, 248, 260]
   },
   {
@@ -51,6 +71,10 @@
     "price": 55.00,
     "category": "Tarih",
     "cover": "https://via.placeholder.com/80x120?text=Osmanlı",
+    "isbn": "978-975-806-213-5",
+    "description": "Osmanlı İmparatorluğunun tarihine kapsamlı bir bakış.",
+    "publication_date": "2019-07-22",
+    "status": "active",
     "sales": [85, 98, 110, 125, 135, 148, 160, 170, 185, 198, 210, 225]
   },
   {
@@ -60,6 +84,10 @@
     "price": 48.50,
     "category": "Roman",
     "cover": "https://via.placeholder.com/80x120?text=Yüzükler",
+    "isbn": "978-0-544-92912-9",
+    "description": "Fantezi edebiyatının en büyük başyapıtı. Orta Dünya'nın efsanevi hikayesi.",
+    "publication_date": "2021-02-14",
+    "status": "active",
     "sales": [140, 155, 168, 180, 190, 205, 218, 230, 245, 258, 270, 285]
   },
   {
@@ -69,6 +97,10 @@
     "price": 35.50,
     "category": "Aşçılık",
     "cover": "https://via.placeholder.com/80x120?text=Gurme",
+    "isbn": "978-625-02-0234-1",
+    "description": "Gourmet mutfağının sırlarını öğrenin. Yemek yapma sanatı.",
+    "publication_date": "2021-04-08",
+    "status": "active",
     "sales": [75, 88, 100, 112, 125, 138, 150, 162, 175, 188, 200, 215]
   },
   {
@@ -78,6 +110,10 @@
     "price": 44.00,
     "category": "Bilim",
     "cover": "https://via.placeholder.com/80x120?text=Evrim",
+    "isbn": "978-0-14-043205-6",
+    "description": "Darwin'in evrim teorisinin temelleri ve kanıtları.",
+    "publication_date": "2020-08-30",
+    "status": "active",
     "sales": [90, 105, 120, 132, 145, 158, 170, 182, 195, 208, 220, 235]
   },
   {
@@ -87,6 +123,10 @@
     "price": 40.00,
     "category": "Çocuk",
     "cover": "https://via.placeholder.com/80x120?text=Hayal",
+    "isbn": "978-0-439-13959-5",
+    "description": "Büyülü dünyaya bir kapı aralayan çocuk romanı.",
+    "publication_date": "2021-09-01",
+    "status": "active",
     "sales": [120, 135, 148, 160, 175, 188, 200, 215, 228, 240, 255, 270]
   },
   {
@@ -96,6 +136,10 @@
     "price": 28.00,
     "category": "Şiir",
     "cover": "https://via.placeholder.com/80x120?text=Şiir",
+    "isbn": "978-975-23-0892-7",
+    "description": "Nazım Hikmet'in sevgi ve yaşam üzerine şiirleri.",
+    "publication_date": "2020-05-18",
+    "status": "active",
     "sales": [65, 75, 85, 95, 105, 115, 125, 135, 145, 155, 165, 175]
   },
   {
@@ -105,6 +149,10 @@
     "price": 32.50,
     "category": "Öykü",
     "cover": "https://via.placeholder.com/80x120?text=Öyküler",
+    "isbn": "978-0-14-018585-0",
+    "description": "Çehov'un etkili ve kısa öykülerinin seçkisi.",
+    "publication_date": "2019-12-03",
+    "status": "active",
     "sales": [80, 92, 105, 118, 130, 142, 155, 168, 180, 192, 205, 218]
   },
   {
@@ -114,6 +162,10 @@
     "price": 39.99,
     "category": "İş/Ekonomi",
     "cover": "https://via.placeholder.com/80x120?text=Başarı",
+    "isbn": "978-0-440-22481-9",
+    "description": "Başarılı insanların alışkanlıkları ve stratejileri.",
+    "publication_date": "2020-02-20",
+    "status": "active",
     "sales": [100, 115, 128, 140, 155, 168, 180, 192, 208, 220, 235, 250]
   },
   {
@@ -123,6 +175,10 @@
     "price": 36.75,
     "category": "Roman",
     "cover": "https://via.placeholder.com/80x120?text=Turist",
+    "isbn": "978-975-23-0456-1",
+    "description": "Türk edebiyatının en çok tartışılan romanlarından biri.",
+    "publication_date": "2020-10-16",
+    "status": "active",
     "sales": [88, 100, 112, 125, 138, 150, 162, 175, 188, 200, 212, 225]
   },
   {
@@ -132,6 +188,10 @@
     "price": 41.00,
     "category": "Bilim Kurgu",
     "cover": "https://via.placeholder.com/80x120?text=Galaksi",
+    "isbn": "978-0-330-25864-8",
+    "description": "Bilim kurgu komedisi. Evrenin absürd bir turlanması.",
+    "publication_date": "2021-03-25",
+    "status": "active",
     "sales": [110, 125, 138, 150, 162, 175, 188, 200, 215, 228, 240, 255]
   },
   {
@@ -141,6 +201,10 @@
     "price": 47.50,
     "category": "Tarih",
     "cover": "https://via.placeholder.com/80x120?text=Medeniyet",
+    "isbn": "978-0-684-81164-2",
+    "description": "Soğuk Savaş sonrası uluslararası ilişkiler üzerine analiz.",
+    "publication_date": "2019-11-08",
+    "status": "active",
     "sales": [75, 88, 102, 115, 128, 142, 155, 168, 182, 195, 208, 222]
   },
   {
@@ -150,6 +214,10 @@
     "price": 34.00,
     "category": "Biyografi",
     "cover": "https://via.placeholder.com/80x120?text=Çiçekler",
+    "isbn": "978-0-7126-5555-4",
+    "description": "INXS müzisyeninin yaşam öyküsü ve başarısı.",
+    "publication_date": "2020-07-12",
+    "status": "active",
     "sales": [92, 105, 118, 130, 143, 155, 168, 180, 192, 205, 218, 230]
   },
   {
@@ -159,6 +227,10 @@
     "price": 33.50,
     "category": "Bilim",
     "cover": "https://via.placeholder.com/80x120?text=Sağlık",
+    "isbn": "978-625-02-0567-0",
+    "description": "Beslenme, egzersiz ve ruh sağlığı üzerine tıbbi tavsiyeler.",
+    "publication_date": "2021-01-19",
+    "status": "active",
     "sales": [85, 98, 112, 125, 138, 152, 165, 178, 192, 205, 218, 232]
   },
   {
@@ -168,6 +240,10 @@
     "price": 29.99,
     "category": "Çocuk",
     "cover": "https://via.placeholder.com/80x120?text=Masallar",
+    "isbn": "978-0-14-036690-4",
+    "description": "Hans Christian Andersen'in ölümsüz masalları.",
+    "publication_date": "2020-04-28",
+    "status": "active",
     "sales": [105, 120, 132, 145, 158, 170, 182, 195, 208, 220, 232, 245]
   },
   {
@@ -177,6 +253,10 @@
     "price": 50.00,
     "category": "İş/Ekonomi",
     "cover": "https://via.placeholder.com/80x120?text=Kapital",
+    "isbn": "978-0-14-044604-8",
+    "description": "Kapitalizm ve ekonomi üzerine Marx'ın kapsamlı analizi.",
+    "publication_date": "2019-09-14",
+    "status": "active",
     "sales": [70, 82, 95, 108, 120, 133, 145, 158, 170, 182, 195, 208]
   }
 ]
