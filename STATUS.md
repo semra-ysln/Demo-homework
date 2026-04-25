@@ -1,52 +1,55 @@
-# 🚀 Bookstore Dashboard - Current Status
+# 🚀 Bookstore Dashboard - Güncel Durum
 
-## 📊 Project Completion: 100% ✅
+## 📊 Proje Tamamlanma: 100% ✅
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    PHASE BREAKDOWN                          │
+│                    AŞAMA BÖLÜMLERİ                          │
 ├─────────────────────────────────────────────────────────────┤
-│ Phase 1: Data Layer Setup                    ✅ COMPLETE   │
-│ Phase 2: Frontend Templates                  ✅ COMPLETE   │
-│ Phase 3: Application Logic                   ✅ COMPLETE   │
-│ Phase 4: Integration & Polish                ✅ COMPLETE   │
-│ Phase 5: SQLite Database Integration         ❌ ABANDONED  │
-│          (Reverted due to CDN issues)                       │
-│ Phase 6: Data Format & Bug Fixes             ✅ COMPLETE   │
-│ Phase 7: Final Code Cleanup & Testing        ✅ COMPLETE   │
+│ Aşama 1: Veri Katmanı Kurulumu                 ✅ TAMAMLANDI │
+│ Aşama 2: Frontend Şablonları                   ✅ TAMAMLANDI │
+│ Aşama 3: Uygulama Mantığı                      ✅ TAMAMLANDI │
+│ Aşama 4: Entegrasyon ve Cilalama               ✅ TAMAMLANDI │
+│ Aşama 5: SQLite Veritabanı Entegrasyonu        ❌ DURDURULDU │
+│          (CDN sorunları nedeniyle geri alındı)              │
+│ Aşama 6: Veri Formatı ve Bug Düzeltmeleri      ✅ TAMAMLANDI │
+│ Aşama 7: Son Kod Temizliği ve Test             ✅ TAMAMLANDI │
+│ Aşama 8: Admin Kimlik Doğrulaması              ✅ TAMAMLANDI │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🎯 What's Working
+## 🎯 Çalışan Özellikler
 
 ### Dashboard (index.html)
 
-- ✅ Displays 20 books from golden-data.json
-- ✅ Statistics cards (Total Books, Revenue, Avg Price, Categories)
-- ✅ Responsive table with book details
-- ✅ Monthly Revenue Chart.js visualization
-- ✅ Navigation to Admin Panel
+- ✅ golden-data.json'dan 20 kitap gösteriyor
+- ✅ İstatistik kartları (Toplam Kitap, Gelir, Ort. Fiyat, Kategoriler)
+- ✅ Responsive tablo ve kitap detayları
+- ✅ Aylık Gelir Chart.js grafiği
+- ✅ Admin Paneline navigasyon
 
-### Admin Panel (admin.html)
+### Admin Paneli (admin.html)
 
-- ✅ Full book management table (ID, Title, Author, Price, Category, Actions)
-- ✅ Edit button → Opens modal → Update any field → Save
-- ✅ Delete button → Confirmation → Removes book
-- ✅ "Add Test Data" button → Adds 3 corrupted books
-- ✅ "Reset System" button → Returns to golden state (20 books)
-- ✅ Keyboard shortcut: Ctrl+Shift+R → Same reset function
-- ✅ Navigation back to Dashboard
+- ✅ Şifre korumalı giriş (Şifre: 1234)
+- ✅ Misafir/Salt Okunur Modu
+- ✅ Kitap yönetimi tablosu (ID, Başlık, Yazar, Fiyat, Kategori, İşlemler)
+- ✅ Düzenle butonu → Modal → Güncelle
+- ✅ Sil butonu → Onay → Kitap kaldırılıyor
+- ✅ "Test Verisi Ekle" butonu → 3 bozuk kitap ekliyor
+- ✅ "Sistemi Sıfırla" butonu → Golden state'e dönüş (20 kitap)
+- ✅ Keyboard kısayolu: Ctrl+Shift+R → Reset fonksiyonu
+- ✅ Dashboard'a geri dönüş navigasyonu
 
-### Data Layer (BookStore Class)
+### Veri Katmanı (BookStore Sınıfı)
 
-- ✅ Load from localStorage on start
-- ✅ Load from golden-data.json on first visit
-- ✅ Add/Edit/Delete operations
-- ✅ Form validation (title, author, price, category, URL)
-- ✅ Reset mechanism (clears localStorage, reloads golden-data.json)
-- ✅ Persistent storage (survives browser restart)
+- ✅ localStorage'dan yükleme (başlangıç)
+- ✅ golden-data.json'dan yükleme (ilk ziyaret)
+- ✅ Ekle/Güncelle/Sil işlemleri
+- ✅ Form validasyonu (başlık, yazar, fiyat, kategori, URL)
+- ✅ Reset mekanizması (localStorage temizle, golden data yükle)
+- ✅ Kalıcı depolama (tarayıcı yeniden başlatmada veri kalır)
 
 ### Golden Data (golden-data.json)
 
