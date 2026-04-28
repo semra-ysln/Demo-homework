@@ -1,16 +1,16 @@
-﻿[
+[
   {
     "id": 1,
     "title": "Suç ve Ceza",
     "author": "Fyodor Dostoyevski",
     "price": 45.00,
     "category": "Roman",
-    "cover": "https://via.placeholder.com/80x120?text=Suç+ve+Ceza",
-    "isbn": "978-0-14-044913-0",
+    "cover": "https://covers.openlibrary.org/b/isbn/9780140449136-M.jpg",
+    "isbn": "978-0-14-044913-6",
     "description": "Dostoyevski'nin başyapıtı. Ahlak, suç ve ceza üzerine derin bir inceleme.",
     "publication_date": "2020-01-15",
     "status": "active",
-    "sales": [120, 135, 140, 155, 148, 165, 172, 180, 195, 210, 225, 240]
+    "sales": [142, 128, 151, 167, 143, 159, 174, 168, 185, 201, 218, 235]
   },
   {
     "id": 2,
@@ -18,12 +18,12 @@
     "author": "Cengiz Aytmatov",
     "price": 38.50,
     "category": "Roman",
-    "cover": "https://via.placeholder.com/80x120?text=Beyaz+Gemi",
-    "isbn": "978-0-14-002947-1",
+    "cover": "https://covers.openlibrary.org/b/isbn/9780571227969-M.jpg",
+    "isbn": "978-0-571-22796-9",
     "description": "Türk edebiyatının etkileyici romanlarından biri.",
     "publication_date": "2019-03-20",
     "status": "active",
-    "sales": [110, 125, 135, 145, 155, 160, 168, 175, 185, 200, 215, 230]
+    "sales": [98, 112, 128, 141, 156, 168, 179, 191, 203, 218, 232, 249]
   },
   {
     "id": 3,
@@ -31,12 +31,12 @@
     "author": "Frank Herbert",
     "price": 52.00,
     "category": "Bilim Kurgu",
-    "cover": "https://via.placeholder.com/80x120?text=Dune",
-    "isbn": "978-0-441-13959-7",
+    "cover": "https://covers.openlibrary.org/b/isbn/9780441172719-M.jpg",
+    "isbn": "978-0-441-17271-9",
     "description": "Bilim kurgu türünün klasik eseri. Epik bir uzay macerası.",
     "publication_date": "2021-06-10",
     "status": "active",
-    "sales": [95, 108, 120, 135, 145, 158, 165, 178, 190, 205, 220, 235]
+    "sales": [87, 104, 119, 142, 158, 173, 189, 201, 216, 228, 241, 254]
   },
   {
     "id": 4,
@@ -44,12 +44,12 @@
     "author": "Orhan Pamuk",
     "price": 42.75,
     "category": "Biyografi",
-    "cover": "https://via.placeholder.com/80x120?text=İstanbul",
-    "isbn": "978-975-23-0745-6",
+    "cover": "https://covers.openlibrary.org/b/isbn/9781400033881-M.jpg",
+    "isbn": "978-1-400-03388-1",
     "description": "Orhan Pamuk'un İstanbul hakkındaki yansımaları ve anıları.",
     "publication_date": "2018-09-05",
     "status": "active",
-    "sales": [100, 112, 125, 138, 150, 162, 175, 188, 200, 215, 228, 240]
+    "sales": [94, 107, 131, 146, 162, 175, 189, 202, 214, 227, 241, 258]
   },
   {
     "id": 5,
@@ -57,12 +57,12 @@
     "author": "George Orwell",
     "price": 38.00,
     "category": "Roman",
-    "cover": "https://via.placeholder.com/80x120?text=1984",
-    "isbn": "978-0-452-26423-9",
+    "cover": "https://covers.openlibrary.org/b/isbn/9780451524935-M.jpg",
+    "isbn": "978-0-451-52493-5",
     "description": "Distopya türünün en meşhur eseri. Totalitarizmin uyarısı.",
     "publication_date": "2020-11-12",
     "status": "active",
-    "sales": [130, 145, 155, 168, 175, 185, 195, 205, 220, 235, 248, 260]
+    "sales": [156, 139, 168, 182, 198, 211, 227, 243, 258, 274, 289, 305]
   },
   {
     "id": 6,
@@ -70,12 +70,12 @@
     "author": "Prof. Dr. İlber Ortaylı",
     "price": 55.00,
     "category": "Tarih",
-    "cover": "https://via.placeholder.com/80x120?text=Osmanlı",
+    "cover": "https://placehold.co/80x120/8B4513/FFFFFF?text=Osmanlı+Tarihi&font=roboto",
     "isbn": "978-975-806-213-5",
     "description": "Osmanlı İmparatorluğunun tarihine kapsamlı bir bakış.",
     "publication_date": "2019-07-22",
     "status": "active",
-    "sales": [85, 98, 110, 125, 135, 148, 160, 170, 185, 198, 210, 225]
+    "sales": [76, 91, 108, 124, 138, 154, 171, 184, 199, 212, 228, 244]
   },
   {
     "id": 7,
@@ -83,12 +83,12 @@
     "author": "J.R.R. Tolkien",
     "price": 48.50,
     "category": "Roman",
-    "cover": "https://via.placeholder.com/80x120?text=Yüzükler",
-    "isbn": "978-0-544-92912-9",
+    "cover": "https://covers.openlibrary.org/b/isbn/9780618640157-M.jpg",
+    "isbn": "978-0-618-64015-7",
     "description": "Fantezi edebiyatının en büyük başyapıtı. Orta Dünya'nın efsanevi hikayesi.",
     "publication_date": "2021-02-14",
     "status": "active",
-    "sales": [140, 155, 168, 180, 190, 205, 218, 230, 245, 258, 270, 285]
+    "sales": [163, 147, 179, 198, 216, 234, 251, 268, 284, 301, 318, 337]
   },
   {
     "id": 8,
@@ -96,12 +96,12 @@
     "author": "Müge Arpacı",
     "price": 35.50,
     "category": "Aşçılık",
-    "cover": "https://via.placeholder.com/80x120?text=Gurme",
+    "cover": "https://placehold.co/80x120/D2691E/FFFFFF?text=Gurme+Mutfağı&font=roboto",
     "isbn": "978-625-02-0234-1",
     "description": "Gourmet mutfağının sırlarını öğrenin. Yemek yapma sanatı.",
     "publication_date": "2021-04-08",
     "status": "active",
-    "sales": [75, 88, 100, 112, 125, 138, 150, 162, 175, 188, 200, 215]
+    "sales": [68, 82, 97, 118, 134, 151, 167, 181, 196, 211, 227, 244]
   },
   {
     "id": 9,
@@ -109,12 +109,12 @@
     "author": "Charles Darwin",
     "price": 44.00,
     "category": "Bilim",
-    "cover": "https://via.placeholder.com/80x120?text=Evrim",
-    "isbn": "978-0-14-043205-6",
+    "cover": "https://covers.openlibrary.org/b/isbn/9780451529060-M.jpg",
+    "isbn": "978-0-451-52906-0",
     "description": "Darwin'in evrim teorisinin temelleri ve kanıtları.",
     "publication_date": "2020-08-30",
     "status": "active",
-    "sales": [90, 105, 120, 132, 145, 158, 170, 182, 195, 208, 220, 235]
+    "sales": [83, 99, 114, 127, 149, 167, 183, 198, 211, 224, 238, 254]
   },
   {
     "id": 10,
@@ -122,11 +122,11 @@
     "author": "J.K. Rowling",
     "price": 40.00,
     "category": "Çocuk",
-    "cover": "https://via.placeholder.com/80x120?text=Hayal",
-    "isbn": "978-0-439-13959-5",
+    "cover": "https://covers.openlibrary.org/b/isbn/9780747532699-M.jpg",
+    "isbn": "978-0-747-53269-9",
     "description": "Büyülü dünyaya bir kapı aralayan çocuk romanı.",
     "publication_date": "2021-09-01",
     "status": "active",
-    "sales": [120, 135, 148, 160, 175, 188, 200, 215, 228, 240, 255, 270]
+    "sales": [137, 151, 164, 178, 192, 206, 219, 231, 245, 259, 273, 288]
   }
 ]
