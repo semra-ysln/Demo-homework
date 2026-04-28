@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page</title>
+</head>
+<body>
+    <h1>Test Page</h1>
+    <div id="output"></div>
+
+    <script>
+        const output = document.getElementById('output');
+
+        // Test localStorage
+        try {
+            localStorage.setItem('test', 'working');
+            const test = localStorage.getItem('test');
+            output.innerHTML += '<p>✅ localStorage working: ' + test + '</p>';
+            localStorage.removeItem('test');
+        } catch (e) {
+            output.innerHTML += '<p>❌ localStorage error: ' + e.message + '</p>';
+        }
+
+        // Test fetch
+        fetch('./data/golden-data.json')
+            .then(response => {
+                if (response.ok) {
+                    output.innerHTML += '<p>✅ Fetch working</p>';
+                    return response.json();
+                } else {
+                    output.innerHTML += '<p>❌ Fetch failed: ' + response.status + '</p>';
+                }
+            })
+            .then(data => {
+                if (data) {
+                    output.innerHTML += '<p>✅ JSON loaded: ' + data.length + ' books</p>';
+                }
+            })
+            .catch(error => {
+                output.innerHTML += '<p>❌ Fetch error: ' + error.message + '</p>';
+            });
+
+        // Test file protocol
+        output.innerHTML += '<p>Protocol: ' + window.location.protocol + '</p>';
+    </script>
+</body>
+</html></content>
+<parameter name="filePath">c:\Users\semra\Desktop\demo-homework\test.html

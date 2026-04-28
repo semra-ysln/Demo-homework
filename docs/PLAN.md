@@ -1,4 +1,4 @@
-# 📋 PLAN - Kitapevi Online Satış Sistemi
+﻿# 📋 PLAN - Kitapevi Online Satış Sistemi
 
 **Proje Adı:** Bookstore Inventory Dashboard  
 **Deadline:** 28.04.2026 22:00  
@@ -15,7 +15,7 @@ Bozulmuş verileri temizleyerek sistemi "Golden State"e dönüştüren bir **paz
 
 1. ✅ **Sistem Başlangıcı:** 20 adet temiz kitap
 2. ❌ **Test Ekibi:** 50+ saçma/bozuk veri ekler
-3. ✅ **Admin Reset:** "Sistemi Sıfırla" → Tekrar 20 temiz kitap
+3. ✅ **Admin Reset:** "Sistemi Sıfırla" → Tekrar 10 temiz kitap
 
 ---
 
@@ -93,10 +93,10 @@ bookstore-dashboard/
 
 ## ✅ Başarı Kriterleri
 
-- ✅ İlk açılışta 20 temiz kitap gösterilir
+- ✅ İlk açılışta 10 temiz kitap gösterilir
 - ✅ Admin panelinde veri ekleme/silme/düzenleme çalışır
 - ✅ Test verisi ekleme başarılıdır
-- ✅ Reset butonu → 20 temiz kitaba dönüş
+- ✅ Reset butonu → 10 temiz kitaba dönüş
 - ✅ Ctrl+Shift+R → Reset işlemini tetikler
 - ✅ Responsive tasarım (Mobil + Desktop)
 - ✅ Tüm MD dosyaları yazılı ve açıklayıcı
@@ -123,7 +123,7 @@ bookstore-dashboard/
 - [x] DATA-STRUCTURE.md - Veri yapısı ve schema
 - [x] DEVELOPMENT.md - Geliştirme rehberi
 - [x] TEST.md - Test senaryoları
-- [x] golden-data.json - 20 kitap verisi (Türkçe ve İngilizce)
+- [x] golden-data.json - 10 kitap verisi (Türkçe ve İngilizce)
 - [x] .gitignore - Git konfigürasyonu
 
 ### ✅ ADIM 2: Veri Katmanı (BookStore)
@@ -195,7 +195,7 @@ bookstore-dashboard/
 #### Test 6.1: Sayfa Yükleme
 
 - [x] index.html açılıyor ve sayfa yükleniyor
-- [x] 20 kitap gösterilir (Golden Data)
+- [x] 10 kitap gösterilir (Golden Data)
 - [x] İstatistik kartları dolmuş
 - [x] Kitap tablosu doldurulmuş
 - [x] Monthly Revenue Chart görünüyor
@@ -258,7 +258,7 @@ bookstore-dashboard/
 - [x] Onay dialog açılır
 - [x] EVET seç
 - [x] Reset işlemi çalışır
-- [x] 20 kitapa dönüldü
+- [x] 10 kitapa dönüldü
 - [x] Toast gösterildi
 
 ### ✅ Responsive Design Testing - Faz 2
@@ -323,7 +323,7 @@ bookstore-dashboard/
 
 ```
 0:00 - index.html aç
-       ✓ 20 temiz kitap görülür
+       ✓ 10 temiz kitap görülür
        ✓ İstatistikler dolmuş
 
 0:30 - Admin paneline git
@@ -385,7 +385,7 @@ bookstore-dashboard/
 #### Test 6.18: Feature Completeness
 
 - [x] Golden data loading ✓
-- [x] 20 kitap başlangıç ✓
+- [x] 10 kitap başlangıç ✓
 - [x] CRUD (Create, Read, Update, Delete) ✓
 - [x] Reset mekanizması ✓
 - [x] Keyboard shortcut ✓
@@ -455,7 +455,7 @@ git push -u origin main
 
 - [x] Tüm kod yazılmış ve test edilmiş
 - [x] Dokümantasyon eksiksiz (7 MD dosyası)
-- [x] golden-data.json mevcut (20 kitap)
+- [x] golden-data.json mevcut (10 kitap)
 - [x] Responsive tasarım ok
 - [x] Console hatasız çalışıyor
 - [x] Demo senaryosu hazır
@@ -520,7 +520,7 @@ Toplam: ~105 min (TAMAMLANDI)
 
 ### 📊 Veri
 
-- ✅ golden-data.json (5.5KB) - 20 kitap
+- ✅ golden-data.json (5.5KB) - 10 kitap
 
 ### 🔧 Config
 
@@ -532,7 +532,7 @@ Toplam: ~105 min (TAMAMLANDI)
 
 ## 🎯 SÖZ VERILEN TÜM ÖZELLİKLER YAPILDI
 
-- [x] **Golden State:** 20 temiz kitap
+- [x] **Golden State:** 10 temiz kitap
 - [x] **Reset Mekanizması:** Ctrl+Shift+R + Buton
 - [x] **CRUD Operasyonları:** Ekle, Düzenle, Sil
 - [x] **Test Verisi:** Bozuk veriler ekleme

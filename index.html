@@ -122,6 +122,28 @@
             </div>
           </div>
 
+          <!-- Shopping Cart Section -->
+          <div class="row mb-4">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header bg-success text-white">
+                  <h5 class="mb-0"><i class="fas fa-shopping-cart"></i> Sepet</h5>
+                </div>
+                <div class="card-body">
+                  <div id="cartItems" class="list-group">
+                    <!-- Sepet öğeleri buraya gelecek -->
+                    <p class="text-muted">Sepetiniz boş.</p>
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-primary" id="checkoutBtn" onclick="checkout()">
+                      <i class="fas fa-credit-card"></i> Ödeme Yap
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Books Table Section -->
           <div class="card mb-4">
             <div class="card-header bg-primary text-white">
@@ -132,11 +154,11 @@
                 <table class="table table-hover" id="booksTable">
                   <thead class="table-light">
                     <tr>
+                      <th>#</th>
                       <th>Title</th>
-                      <th>Authors</th>
-                      <th>Price</th>
                       <th>Category</th>
-                      <th>Cover</th>
+                      <th>Price</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -202,22 +224,38 @@
       class BookStore {
         constructor() {
           this.storageKey = "bookstore_books";
+          this.versionKey = "bookstore_books_version";
+          this.currentVersion = "2";
           this.goldenDataUrl = "./data/golden-data.json";
           this.books = [];
         }
 
         async init() {
           try {
+            console.log("🔄 BookStore.init() starting...");
+            const storedVersion = localStorage.getItem(this.versionKey);
             const storedData = localStorage.getItem(this.storageKey);
-            if (storedData) {
-              this.books = JSON.parse(storedData);
-              console.log(
-                `✅ Loaded ${this.books.length} books from localStorage`,
-              );
+            console.log("📋 storedVersion:", storedVersion, "currentVersion:", this.currentVersion);
+            console.log("📋 storedData exists:", !!storedData);
+
+            if (storedData && storedVersion === this.currentVersion) {
+              console.log("✅ Version match, parsing stored data...");
+              const parsed = JSON.parse(storedData);
+              console.log("📋 parsed data:", parsed);
+              if (Array.isArray(parsed) && parsed.length > 0) {
+                this.books = parsed;
+                console.log(`✅ Loaded ${this.books.length} books from localStorage`);
+                return;
+              } else {
+                console.warn("⚠️ Stored data is not valid array or empty");
+              }
             } else {
-              console.log("📥 Loading golden data...");
-              await this.loadGoldenData();
+              console.warn("⚠️ No stored data or version mismatch, reloading golden data");
             }
+
+            localStorage.removeItem(this.storageKey);
+            localStorage.setItem(this.versionKey, this.currentVersion);
+            await this.loadGoldenData();
           } catch (error) {
             console.error("❌ Error during init:", error);
             await this.loadGoldenData();
@@ -225,18 +263,134 @@
         }
 
         async loadGoldenData() {
-          try {
-            const response = await fetch(this.goldenDataUrl);
-            if (!response.ok) {
-              throw new Error(`Failed to fetch: ${response.statusText}`);
-            }
-            this.books = await response.json();
+          if (window.location.protocol === "file:") {
+            console.warn("⚠️ File protocol detected, skipping fetch and using fallback books.");
+            this.books = this.getFallbackBooks();
             this.saveToStorage();
-            console.log(`✅ Golden data loaded: ${this.books.length} books`);
-          } catch (error) {
-            console.error("❌ Error loading golden data:", error);
-            this.books = [];
+            return;
           }
+
+          const candidateUrls = [
+            new URL("./data/golden-data.json", window.location.href).href,
+            new URL("data/golden-data.json", window.location.href).href,
+            "./data/golden-data.json",
+            "data/golden-data.json",
+          ];
+
+          for (const url of candidateUrls) {
+            try {
+              const response = await fetch(url);
+              if (!response.ok) {
+                console.warn(`⚠️ Fetch failed for ${url}: ${response.status} ${response.statusText}`);
+                continue;
+              }
+              this.books = await response.json();
+              this.saveToStorage();
+              console.log(`✅ Golden data loaded from ${url}: ${this.books.length} books`);
+              return;
+            } catch (error) {
+              console.warn(`⚠️ Fetch error for ${url}:`, error);
+            }
+          }
+
+          console.error("❌ All golden data fetch attempts failed. Using fallback dataset.");
+          this.books = this.getFallbackBooks();
+          this.saveToStorage();
+        }
+
+        getFallbackBooks() {
+          return [
+            {
+              id: 1,
+              title: "Suç ve Ceza",
+              author: "Fyodor Dostoyevski",
+              price: 45.0,
+              category: "Roman",
+              cover: "https://via.placeholder.com/80x120?text=Suç+ve+Ceza",
+              sales: [120, 135, 140, 155, 148, 165, 172, 180, 195, 210, 225, 240],
+            },
+            {
+              id: 2,
+              title: "Beyaz Gemi",
+              author: "Cengiz Aytmatov",
+              price: 38.5,
+              category: "Roman",
+              cover: "https://via.placeholder.com/80x120?text=Beyaz+Gemi",
+              sales: [110, 125, 135, 145, 155, 160, 168, 175, 185, 200, 215, 230],
+            },
+            {
+              id: 3,
+              title: "Dune",
+              author: "Frank Herbert",
+              price: 52.0,
+              category: "Bilim Kurgu",
+              cover: "https://via.placeholder.com/80x120?text=Dune",
+              sales: [95, 108, 120, 135, 145, 158, 165, 178, 190, 205, 220, 235],
+            },
+            {
+              id: 4,
+              title: "İstanbul Anıları",
+              author: "Orhan Pamuk",
+              price: 42.75,
+              category: "Biyografi",
+              cover: "https://via.placeholder.com/80x120?text=İstanbul",
+              sales: [100, 112, 125, 138, 150, 162, 175, 188, 200, 215, 228, 240],
+            },
+            {
+              id: 5,
+              title: "1984",
+              author: "George Orwell",
+              price: 38.0,
+              category: "Roman",
+              cover: "https://via.placeholder.com/80x120?text=1984",
+              sales: [130, 145, 155, 168, 175, 185, 195, 205, 220, 235, 248, 260],
+            },
+            {
+              id: 6,
+              title: "Osmanlı Tarihi",
+              author: "Prof. Dr. İlber Ortaylı",
+              price: 55.0,
+              category: "Tarih",
+              cover: "https://via.placeholder.com/80x120?text=Osmanlı",
+              sales: [85, 98, 110, 125, 135, 148, 160, 170, 185, 198, 210, 225],
+            },
+            {
+              id: 7,
+              title: "Yüzüklerin Efendisi",
+              author: "J.R.R. Tolkien",
+              price: 48.5,
+              category: "Roman",
+              cover: "https://via.placeholder.com/80x120?text=Yüzükler",
+              sales: [140, 155, 168, 180, 190, 205, 218, 230, 245, 258, 270, 285],
+            },
+            {
+              id: 8,
+              title: "Gurme Mutfağı",
+              author: "Müge Arpacı",
+              price: 35.5,
+              category: "Aşçılık",
+              cover: "https://via.placeholder.com/80x120?text=Gurme",
+              sales: [75, 88, 100, 112, 125, 138, 150, 162, 175, 188, 200, 215],
+            },
+            {
+              id: 9,
+              title: "Evrim Teorisi",
+              author: "Charles Darwin",
+              price: 44.0,
+              category: "Bilim",
+              cover: "https://via.placeholder.com/80x120?text=Evrim",
+              sales: [90, 105, 120, 132, 145, 158, 170, 182, 195, 208, 220, 235],
+            },
+            {
+              id: 10,
+              title: "Hayal Gücü",
+              author: "J.K. Rowling",
+              price: 40.0,
+              category: "Çocuk",
+              cover: "https://via.placeholder.com/80x120?text=Hayal",
+              sales: [120, 135, 148, 160, 175, 188, 200, 215, 228, 240, 255, 270],
+            },
+          ];
         }
 
         getBooks() {
@@ -396,7 +550,99 @@
         }
       }
 
+      /**
+       * =====================================================
+       * CART DATA LAYER (CartStore)
+       * =====================================================
+       */
+      class CartStore {
+        constructor() {
+          this.storageKey = "bookstore_cart";
+          this.cart = [];
+        }
+
+        init() {
+          const storedData = localStorage.getItem(this.storageKey);
+          if (storedData) {
+            this.cart = JSON.parse(storedData);
+            console.log(`✅ Loaded ${this.cart.length} cart items from localStorage`);
+          } else {
+            this.cart = [];
+          }
+        }
+
+        addToCart(bookId, quantity = 1) {
+          const existingItem = this.cart.find(item => item.bookId === bookId);
+          if (existingItem) {
+            existingItem.quantity += quantity;
+          } else {
+            this.cart.push({ bookId, quantity });
+          }
+          this.saveToStorage();
+          console.log(`✅ Added to cart: Book ID ${bookId}, Quantity: ${quantity}`);
+        }
+
+        removeFromCart(bookId) {
+          this.cart = this.cart.filter(item => item.bookId !== bookId);
+          this.saveToStorage();
+          console.log(`✅ Removed from cart: Book ID ${bookId}`);
+        }
+
+        updateQuantity(bookId, quantity) {
+          const item = this.cart.find(item => item.bookId === bookId);
+          if (item) {
+            item.quantity = quantity;
+            if (item.quantity <= 0) {
+              this.removeFromCart(bookId);
+            } else {
+              this.saveToStorage();
+            }
+          }
+        }
+
+        getCartItems() {
+          return this.cart.map(item => {
+            const book = bookStore.getBooks().find(b => b.id === item.bookId);
+            return {
+              ...item,
+              book: book || null
+            };
+          }).filter(item => item.book !== null);
+        }
+
+        getTotalPrice() {
+          return this.getCartItems().reduce((total, item) => {
+            if (!item.book) return total;
+            return total + (item.book.price * item.quantity);
+          }, 0);
+        }
+
+        clearCart() {
+          this.cart = [];
+          this.saveToStorage();
+          console.log("✅ Cart cleared");
+        }
+
+        checkout() {
+          // Simülasyon: Satışları güncelle
+          this.getCartItems().forEach(item => {
+            if (!item.book) return;
+            const book = item.book;
+            const currentMonth = new Date().getMonth(); // 0-11
+            book.sales[currentMonth] += item.quantity;
+            bookStore.updateBook(book.id, { sales: book.sales });
+          });
+          this.clearCart();
+          console.log("✅ Checkout completed, sales updated");
+        }
+
+        saveToStorage() {
+          localStorage.setItem(this.storageKey, JSON.stringify(this.cart));
+        }
+      }
+
       const bookStore = new BookStore();
+      const cartStore = new CartStore();
 
       /**
        * =====================================================
@@ -431,7 +677,9 @@
       async function initApp() {
         try {
           await bookStore.init();
+          cartStore.init();
           renderBooks();
+          renderCart();
           renderChart();
           updateStats();
           Toast.show("Dashboard loaded successfully", "success");
@@ -440,21 +688,67 @@
         }
       }
 
-      function renderBooks() {
-        const tbody = document.querySelector("#booksTable tbody");
-        tbody.innerHTML = "";
+      function renderCart() {
+        const cartItemsDiv = document.getElementById("cartItems");
+        const cartItems = cartStore.getCartItems();
 
-        bookStore.getBooks().forEach((book) => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-                    <td><strong>${book.title}</strong></td>
-                    <td>${book.author}</td>
-                    <td>$${book.price.toFixed(2)}</td>
-                    <td><span class="badge bg-info">${book.category}</span></td>
-                    <td><img src="${book.cover}" alt="${book.title}" width="50" height="70" class="img-thumbnail"></td>
-                `;
-          tbody.appendChild(tr);
-        });
+        if (cartItems.length === 0) {
+          cartItemsDiv.innerHTML = '<p class="text-muted">Sepetiniz boş.</p>';
+          return;
+        }
+
+        cartItemsDiv.innerHTML = cartItems.map(item => {
+          if (!item.book) {
+            return `<div class="list-group-item text-danger">Kitap bulunamadı (ID: ${item.bookId})</div>`;
+          }
+          return `
+          <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <strong>${item.book.title}</strong> by ${item.book.author}<br>
+              <small class="text-muted">$${item.book.price.toFixed(2)} x ${item.quantity} = $${(item.book.price * item.quantity).toFixed(2)}</small>
+            </div>
+            <div>
+              <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${item.bookId})">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        `}).join('');
+
+        // Toplam fiyatı göster
+        const totalDiv = document.createElement("div");
+        totalDiv.className = "list-group-item d-flex justify-content-between align-items-center bg-light";
+        totalDiv.innerHTML = `
+          <strong>Toplam: $${cartStore.getTotalPrice().toFixed(2)}</strong>
+        `;
+        cartItemsDiv.appendChild(totalDiv);
+      }
+
+      function addToCart(bookId) {
+        cartStore.addToCart(bookId);
+        renderCart();
+        Toast.show("Kitap sepete eklendi!", "success");
+      }
+
+      function removeFromCart(bookId) {
+        cartStore.removeFromCart(bookId);
+        renderCart();
+        Toast.show("Kitap sepetten çıkarıldı!", "info");
+      }
+
+      function checkout() {
+        if (cartStore.getCartItems().length === 0) {
+          Toast.show("Sepetiniz boş!", "warning");
+          return;
+        }
+
+        if (confirm(`Toplam: $${cartStore.getTotalPrice().toFixed(2)}\nÖdemeyi tamamlamak istiyor musunuz?`)) {
+          cartStore.checkout();
+          renderCart();
+          renderChart(); // Grafik güncelle
+          updateStats(); // İstatistikler güncelle
+          Toast.show("Ödeme tamamlandı! Satışlar güncellendi.", "success");
+        }
       }
 
       function updateStats() {
@@ -525,10 +819,55 @@
         window.location.href = "admin.html";
       }
 
+      function getCoverUrl(book) {
+        const fallback = 'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2280%22%20height%3D%22120%22%3E%3Crect%20width%3D%2280%22%20height%3D%22120%22%20fill%3D%22%23e9ecef%22/%3E%3Ctext%20x%3D%2240%22%20y%3D%2270%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2210%22%20fill%3D%22%23666%22%20text-anchor%3D%22middle%22%3EKitap%20Kapak%3C/text%3E%3C/svg%3E';
+        if (window.location.protocol === "file:") {
+          return fallback;
+        }
+        if (!book.cover || typeof book.cover !== "string") {
+          return fallback;
+        }
+        try {
+          return new URL(book.cover).href;
+        } catch (error) {
+          return fallback;
+        }
+      }
+
+      function renderBooks() {
+        const tbody = document.querySelector("#booksTable tbody");
+        tbody.innerHTML = "";
+        const books = bookStore.getBooks();
+        books.forEach((book) => {
+          const coverUrl = getCoverUrl(book);
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${book.id}</td>
+            <td>
+              <div class="d-flex align-items-center">
+                <img src="${coverUrl}" alt="${book.title}" class="book-cover me-2" style="width: 40px; height: 60px; object-fit: cover;" onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2280%22%20height%3D%22120%22%3E%3Crect%20width%3D%2280%22%20height%3D%22120%22%20fill%3D%22%23e9ecef%22/%3E%3Ctext%20x%3D%2240%22%20y%3D%2270%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2210%22%20fill%3D%22%23666%22%20text-anchor%3D%22middle%22%3EKitap%20Kapak%3C/text%3E%3C/svg%3E';">
+                <div>
+                  <strong>${book.title}</strong><br>
+                  <small class="text-muted">${book.author}</small>
+                </div>
+              </div>
+            </td>
+            <td><span class="badge bg-secondary">${book.category}</span></td>
+            <td>₺${book.price.toFixed(2)}</td>
+            <td>
+              <button class="btn btn-success btn-sm" onclick="addToCart(${book.id})">
+                <i class="fas fa-cart-plus"></i> Sepete Ekle
+              </button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
       function confirmReset() {
         if (
           confirm(
-            "Sistemi Golden State'e sıfırlamak istediğinize emin misiniz?\n\nTüm bozuk veriler silinecek ve 20 temiz kitap geri yüklenecektir.",
+            "Sistemi Golden State'e sıfırlamak istediğinize emin misiniz?\n\nTüm bozuk veriler silinecek ve 10 temiz kitap geri yüklenecektir.",
           )
         ) {
           resetSystem();

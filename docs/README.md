@@ -1,4 +1,4 @@
-# 📚 README - Kitapevi Online Satış Sistemi
+﻿# 📚 README - Kitapevi Online Satış Sistemi
 
 **Proje Adı:** Bookstore Inventory Dashboard  
 **Sürüm:** 1.0  
@@ -13,9 +13,9 @@ Bu proje, **bozulmuş verileri temizleyerek sistemi "Golden State"e dönüştür
 
 ### Ana Senaryo:
 
-1. **Temiz Durum:** Sistem 20 adet yazarı doğru, fiyatı mantıklı kitapla başlar
+1. **Temiz Durum:** Sistem 10 adet yazarı doğru, fiyatı mantıklı kitapla başlar
 2. **Bozuk Durum:** Test ekibi 50+ adet saçma, hatalı veri ekler
-3. **Reset Mekanizması:** Admin tek tuşla **"Sistemi Sıfırla"** → 20 temiz kitaba dönüş
+3. **Reset Mekanizması:** Admin tek tuşla **"Sistemi Sıfırla"** → 10 temiz kitaba dönüş
 
 ---
 
@@ -23,7 +23,7 @@ Bu proje, **bozulmuş verileri temizleyerek sistemi "Golden State"e dönüştür
 
 ### ✅ Kullanıcı Paneli (index.html)
 
-- 📋 20 kitabın temiz listesi
+- 📋 10 kitabın temiz listesi
 - 📊 İstatistik kartları (Toplam Kitap, Gelir, Ort. Fiyat)
 - 📈 Aylık satış grafiği (Chart.js)
 - 🎨 Modern ve responsive tasarım
@@ -89,7 +89,7 @@ bookstore-dashboard/
 │   ├── data.js                  # Veri yönetimi
 │   └── toast.js                 # Bildirim sistemi
 └── data/
-    └── golden-data.json         # 20 temiz kitap
+    └── golden-data.json         # 10 temiz kitap
 ```
 
 ---
@@ -140,11 +140,11 @@ npx http-server
 ### 4️⃣ Demo Yap
 
 ```
-1. Sayfayı aç → 20 kitap görmeli
+1. Sayfayı aç → 10 kitap görmeli
 2. Admin butonuna tıkla
 3. "Test Veri Ekle" 5 kez tıkla
 4. "Sistemi Sıfırla" butonuna tıkla
-5. 20 kitaba dönüldüğünü gözle ✅
+5. 10 kitaba dönüldüğünü gözle ✅
 ```
 
 ---
@@ -155,7 +155,7 @@ npx http-server
 
 **Giriş Sayfası (index.html)**
 
-- ✅ 20 kitabın tam listesi
+- ✅ 10 kitabın tam listesi
 - 📊 İstatistikler (Toplam Kitap, Gelir, vb)
 - 📈 Aylık satış grafiği
 
@@ -165,7 +165,7 @@ npx http-server
 
 #### Yeni Kitap Ekle
 
-```
+```Önemli
 1. "Yeni Kitap Ekle" butonuna tıkla
 2. Form doldur:
    - Kitap Adı: Min 3 karakter
@@ -200,7 +200,7 @@ npx http-server
 1. "Sistemi Sıfırla" butonuna tıkla
 2. Onay dialog'da "EVET" seç
 3. Toast: "Sistem başarıyla sıfırlandı" ✅
-4. 20 temiz kitap geri döner
+4. 10 temiz kitap geri döner
 ```
 
 #### Test Veri Ekle
@@ -282,7 +282,7 @@ Toast.show("Test", "success");
 
 ```
 0:00 - Sayfayı aç
-"Gördüğünüz gibi, 20 temiz kitap var. Bu Golden State."
+"Gördüğünüz gibi, 10 temiz kitap var. Bu Golden State."
 
 0:30 - Admin panele tıkla
 "Admin panelinde CRUD işlemleri yapabiliriz."
@@ -300,7 +300,7 @@ Toast.show("Test", "success");
 "Bozuk veriler kaldırılır..."
 
 3:30 - Reset tamamlandı
-"Yine 20 temiz kitabımız var! ✅"
+"Yine 10 temiz kitabımız var! ✅"
 
 4:00 - Demo tamamlandı
 "Teşekkür ederim!"
@@ -323,11 +323,11 @@ Toast.show("Test", "success");
 
 ### Kontrol Listesi
 
-- ✅ İlk yükleme: 20 kitap
+- ✅ İlk yükleme: 10 kitap
 - ✅ Ekle: Yeni kitap ekleniyor
 - ✅ Düzenle: Kitap güncelleniyor
 - ✅ Sil: Kitap kaldırılıyor
-- ✅ Reset: 20 kitapa dönüyor
+- ✅ Reset: 10 kitapa dönüyor
 - ✅ Kısayol: Ctrl+Shift+R çalışıyor
 - ✅ Responsive: Mobil/Tablet/Desktop
 - ✅ Veri Persist: Sayfa yenile → Veri kalıcı

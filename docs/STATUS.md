@@ -1,4 +1,4 @@
-# 🚀 Bookstore Dashboard - Güncel Durum
+﻿# 🚀 Bookstore Dashboard - Güncel Durum
 
 ## 📊 Proje Tamamlanma: 100% ✅
 
@@ -24,7 +24,7 @@
 
 ### Dashboard (index.html)
 
-- ✅ golden-data.json'dan 20 kitap gösteriyor
+- ✅ golden-data.json'dan 10 kitap gösteriyor
 - ✅ İstatistik kartları (Toplam Kitap, Gelir, Ort. Fiyat, Kategoriler)
 - ✅ Responsive tablo ve kitap detayları
 - ✅ Aylık Gelir Chart.js grafiği
@@ -38,7 +38,7 @@
 - ✅ Düzenle butonu → Modal → Güncelle
 - ✅ Sil butonu → Onay → Kitap kaldırılıyor
 - ✅ "Test Verisi Ekle" butonu → 3 bozuk kitap ekliyor
-- ✅ "Sistemi Sıfırla" butonu → Golden state'e dönüş (20 kitap)
+- ✅ "Sistemi Sıfırla" butonu → Golden state'e dönüş (10 kitap)
 - ✅ Keyboard kısayolu: Ctrl+Shift+R → Reset fonksiyonu
 - ✅ Dashboard'a geri dönüş navigasyonu
 
@@ -98,7 +98,7 @@ Clear localStorage
         ↓
 Load golden-data.json
         ↓
-   UI shows 20 books
+   UI shows 10 books
 ```
 
 ---
@@ -115,9 +115,9 @@ Load golden-data.json
 
 ### Manual Testing Ready
 
-- [ ] Fresh load shows 20 books
+- [ ] Fresh load shows 10 books
 - [ ] Can add test data (3 broken books)
-- [ ] Can reset to 20 books
+- [ ] Can reset to 10 books
 - [ ] Can edit individual books
 - [ ] Can delete individual books
 - [ ] Data persists across page reloads
@@ -135,7 +135,7 @@ _→ See TEST-CHECKLIST.md for detailed test scenarios_
 ```
 ✅ index.html            (9 KB)   - Dashboard, read-only view
 ✅ admin.html           (11 KB)   - Admin panel, CRUD ops
-✅ golden-data.json     (5.3 KB) - Golden state, 20 books
+✅ golden-data.json     (5.3 KB) - Golden state, 10 books
 ✅ style.css           (13.1 KB) - All styling
 ✅ README.md            (User guide)
 ✅ PLAN.md              (Project plan)
@@ -174,10 +174,10 @@ python -m http.server 8080 --bind 127.0.0.1
 
 ### Demo Script (5 minutes)
 
-1. **Load** index.html → Show 20 books
+1. **Load** index.html → Show 10 books
 2. **Navigate** to admin.html
 3. **Add Test Data** → Show 23 books (corrupted)
-4. **Reset System** → Show 20 books again
+4. **Reset System** → Show 10 books again
 5. **Edit** a book (show persistence)
 6. **Delete** a book (show persistence)
 7. **Ctrl+Shift+R** → Show keyboard shortcut works
@@ -223,7 +223,7 @@ python -m http.server 8080 --bind 127.0.0.1
 
 All requirements met:
 
-- ✅ 20 books initially
+- ✅ 10 books initially
 - ✅ Reset mechanism (button + keyboard)
 - ✅ Add corrupted data capability
 - ✅ Persistent storage
@@ -249,3 +249,4 @@ All requirements met:
 
 _Last Updated: Phase 7 Complete_
 _Next Step: Execute test scenarios from TEST-CHECKLIST.md_
+
